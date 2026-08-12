@@ -1,0 +1,77 @@
+
+services:
+  Gateway:
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: Gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres_db;Port=5432;Database=ticketeira_db;Username=postgres;Password=sua_senha
+    depends_on:
+      - postgres_db
+      - redis_cache
+    networks:
+      - rede-interna
+
+  EventService:
+    image: ${DOCKER_REGISTRY-}eventservice
+    build:
+      context: .
+      dockerfile: EventService/Dockerfile
+    ports:
+      - "8081:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres_db;Port=5432;Database=ticketeira_db;Username=postgres;Password=sua_senha
+    depends_on:
+      - postgres_db
+      - redis_cache
+    networks:
+      - rede-interna
+  
+  SearchService:
+    image: ${DOCKER_REGISTRY-}searchservice
+    build:
+      context: .
+      dockerfile: SearchService/Dockerfile
+    ports:
+      - "8082:8080"
+    environment:
+      - ConnectionStrings__DefaultConnection=Host=postgres_db;Port=5432;Database=ticketeira_db;Username=postgres;Password=sua_senha
+    depends_on:
+      - postgres_db
+      - redis_cache
+    networks:
+      - rede-interna
+
+  postgres_db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ticketeira_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: sua_senha
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - rede-interna
+
+  redis_cache:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+    volumes:
+      - redisdata:/data
+    networks:
+      - rede-interna
+
+volumes:
+  pgdata:
+  redisdata:
+  
+networks:
+  rede-interna:
+    driver: bridge

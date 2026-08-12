@@ -1,0 +1,67 @@
+@Ticketeira_HostAddress = http://localhost:5059
+
+### 1. Listar todos os shows
+GET {{Ticketeira_HostAddress}}/Shows
+Accept: application/json
+
+###
+
+### 2. Buscar show por ID
+GET {{Ticketeira_HostAddress}}/Shows/1
+Accept: application/json
+
+###
+
+### 3. Filtrar shows (por data, cidade, artista, etc.)
+GET {{Ticketeira_HostAddress}}/Shows?cidade=SaoPaulo&genero=Rock
+Accept: application/json
+
+###
+
+### 4. Criar um novo show
+POST {{Ticketeira_HostAddress}}/Shows
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Festival de Inverno",
+  "artista": "Banda Exemplo",
+  "data": "2026-10-15T20:00:00Z",
+  "local": "Arena Central",
+  "capacidade": 5000,
+  "precoBase": 150.00
+}
+
+###
+
+### 5. Atualizar todos os dados do show (Substituição)
+PUT {{Ticketeira_HostAddress}}/Shows/1
+Content-Type: application/json
+Accept: application/json
+
+{
+  "nome": "Festival de Inverno - Edição Especial",
+  "artista": "Banda Exemplo",
+  "data": "2026-10-15T21:00:00Z",
+  "local": "Arena Central",
+  "capacidade": 6000,
+  "precoBase": 180.00
+}
+
+###
+
+### 6. Atualização parcial do show (ex: alterar apenas o status/data)
+PATCH {{Ticketeira_HostAddress}}/Shows/1
+Content-Type: application/json
+
+{
+  "status": "Cancelado"
+}
+
+###
+
+### 7. Excluir um show
+DELETE {{Ticketeira_HostAddress}}/Shows/1
+Accept: application/json
+
+###

@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="docker-compose.dcproj">
+    <Build />
+  </Project>
+  <Project Path="EventService/EventService.csproj" Id="ec570e06-c4ac-482f-ac6d-a98c165dff77" />
+  <Project Path="Gateway/Gateway.csproj" Id="247f0e2e-072e-487b-9471-1d3c7e41e195" />
+  <Project Path="SearchService/SearchService.csproj" />
+</Solution>
