@@ -14,6 +14,14 @@ namespace SearchService.BancoDeDados
         private static readonly string _connectionString = "Host=postgres_db;Port=5432;Database=ticketeira_db;Username=postgres;Password=sua_senha";
         private static NpgsqlConnection connect() => new NpgsqlConnection(_connectionString);
 
+        private static readonly Lazy<ConnectionMultiplexer> LazyConnection =
+        new Lazy<ConnectionMultiplexer>(() =>
+        {
+            return ConnectionMultiplexer.Connect("redis:6379");
+        });
+
+        public static ConnectionMultiplexer RedisConnection => LazyConnection.Value;
+
         public PostgreDB()
         {
 
@@ -21,6 +29,15 @@ namespace SearchService.BancoDeDados
 
         public static string GetEventoById(int event_id)
         {
+            IDatabase dbRedis = RedisConnection.GetDatabase();
+
+            string valorChave = dbRedis.StringGet(event_id.ToString());
+
+            if (!string.IsNullOrEmpty(valorChave))
+            {
+                return "Redis: " + valorChave;
+            }
+
             using var connection = connect();
 
             string sql = @"
@@ -78,23 +95,15 @@ namespace SearchService.BancoDeDados
 
             string jsonString = JsonSerializer.Serialize(resultado, options);
 
+            dbRedis.StringSet(event_id.ToString(), jsonString);
+
             return jsonString;
         }
 
         public static string GetEventoByName(string keyword = "")
         {
-            //using (var redis = ConnectionMultiplexer.Connect("redis:6379"))
-            //{
-            //    IDatabase db = redis.GetDatabase();
 
-            //    db.StringSet("chaveTest", "Olá do C# com Redis!");
-
-            //    string valor = db.StringGet("chaveTest");
-            //}
-
-            //Console.ReadKey();
-
-            using var connection = connect();
+            using var dbConnection = connect();
 
             string sql = @"
                  SELECT 
@@ -108,13 +117,13 @@ namespace SearchService.BancoDeDados
                     local.id AS Id,
                     local.nome AS Nome, 
                     local.cidade AS Cidade
-                FROM shows eventos
+                FROM eventos eventos
                 INNER JOIN Artistas artista ON eventos.artista = artista.id
                 INNER JOIN Locais local ON eventos.local = local.id
                 WHERE eventos.nome ILIKE @Keyword
             ";
 
-            var resultado = connection.Query<EventoDto, ArtistaDto, LocalDto, Evento>(
+            var resultado = dbConnection.Query<EventoDto, ArtistaDto, LocalDto, Evento>(
                 sql,
                 (eventoDto, artistaDto, localDto) =>
                 {
@@ -171,7 +180,7 @@ namespace SearchService.BancoDeDados
                     local.id AS Id,
                     local.nome AS Nome, 
                     local.cidade AS Cidade
-                FROM shows eventos
+                FROM eventos eventos
                 INNER JOIN Artistas artista ON eventos.artista = artista.id
                 INNER JOIN Locais local ON eventos.local = local.id
             ";

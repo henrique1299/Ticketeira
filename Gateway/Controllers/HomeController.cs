@@ -11,7 +11,7 @@ namespace Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> BuscarEventos()
         {
-            string url = "http://SearchService:8080/events";
+            string url = "http://SearchService:8080/event";
 
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();

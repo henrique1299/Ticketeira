@@ -12,7 +12,7 @@ namespace Gateway.Controllers
         [HttpGet]
         public async Task<IActionResult> BuscarEventos([FromQuery] string keyword, [FromQuery] string? start_date, [FromQuery] string? end_date)
         {
-            string url = "http://SearchService:8080/events/search?keyword=" + keyword+"&start_date="+start_date+"&end_date="+end_date;
+            string url = "http://SearchService:8080/event/search?keyword=" + keyword+"&start_date="+start_date+"&end_date="+end_date;
 
             HttpResponseMessage response = await client.GetAsync(url);
             response.EnsureSuccessStatusCode();

@@ -8,7 +8,7 @@ namespace SearchService.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class EventsController : ControllerBase
+    public class EventController : ControllerBase
     {
 
         [HttpGet("{event_id}")]
