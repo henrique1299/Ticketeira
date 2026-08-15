@@ -51,6 +51,7 @@ services:
       POSTGRES_DB: ticketeira_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: sua_senha
+    command: postgres -c wal_level=logical
     ports:
       - "5432:5432"
     volumes:
@@ -78,7 +79,7 @@ services:
       - node.name=elasticsearch
       - cluster.name=docker-elasticsearch-cluster
       - discovery.type=single-node
-      - ELASTIC_PASSWORD=changeme123
+      - ELASTIC_PASSWORD=pF*vitEA0z*xZ-ENF91a
       - bootstrap.memory_lock=true
     ulimits:
       memlock:
@@ -97,9 +98,8 @@ services:
     ports:
       - 5601:5601
     environment:
-      - ELASTICSEARCH_HOSTS=https://elasticsearch:9200
-      - ELASTICSEARCH_USERNAME=elastic
-      - ELASTICSEARCH_PASSWORD=changeme123
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_SERVICEACCOUNTTOKEN=AAEAAWVsYXN0aWMva2liYW5hL2tpYmFuYS10b2tlbjpfbjlkeS1JSlRDLVk4TzBvM2U1YWx3
       - ELASTICSEARCH_SSL_VERIFICATIONMODE=none
     depends_on:
       - elasticsearch
@@ -147,6 +147,9 @@ services:
       - CONFIG_STORAGE_REPLICATION_FACTOR=1
       - OFFSET_STORAGE_REPLICATION_FACTOR=1
       - STATUS_STORAGE_REPLICATION_FACTOR=1
+      - CONNECT_PLUGIN_PATH=/usr/share/java,/kafka/connect,/data/connect-plugins
+    volumes:
+      - ./connect-plugins:/data/connect-plugins  
     depends_on:
       - kafka
       - postgres
