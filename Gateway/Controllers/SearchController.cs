@@ -4,7 +4,7 @@ using System.Net.Http;
 namespace Gateway.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("event/[controller]")]
     public class SearchController : ControllerBase
     {
         private static readonly HttpClient client = new HttpClient();

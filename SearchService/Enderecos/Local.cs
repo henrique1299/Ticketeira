@@ -11,6 +11,8 @@ namespace SearchService.Enderecos
         public Endereco endereco { get; set; }
         public Assento assento { get; set; }    
 
+        public Local() { }
+
         public Local(int Id, string nome, Endereco endereco, int capacidade)
         {
             this.Id = Id;

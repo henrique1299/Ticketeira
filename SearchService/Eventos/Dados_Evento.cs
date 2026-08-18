@@ -10,6 +10,8 @@ namespace SearchService.Eventos
         public Local local { get; set; }
         public Artista artista { get; set; }
 
+        public Dados_Evento() { }
+
         public Dados_Evento(string nome, string descricao, Artista artista, Local local)
         {
             this.nome = nome;

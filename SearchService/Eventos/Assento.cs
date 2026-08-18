@@ -7,6 +7,8 @@
         private int Codigo;
         private int Setor;
 
+        public Assento() { }
+
         public Assento(int Id, int Codigo, int Setor)
         {
             this.Id = Id;

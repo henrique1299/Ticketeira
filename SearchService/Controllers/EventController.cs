@@ -18,9 +18,9 @@ namespace SearchService.Controllers
         }
 
         [HttpGet("search")]
-        public string GetEventByName([FromQuery] string? keyword, [FromQuery] string? start_date, [FromQuery] string? end_date)
+        public async Task<string> GetEventByName([FromQuery] string? keyword, [FromQuery] string? start_date, [FromQuery] string? end_date)
         {
-            return PostgreDB.GetEventoByName(keyword);
+            return await PostgreDB.GetEventoByName(keyword);
         }
 
         [HttpGet]

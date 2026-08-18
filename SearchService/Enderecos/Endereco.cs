@@ -12,6 +12,8 @@ namespace SearchService
         public string pais { get; set; }
         public CEP cep { get; set; }
 
+        public Endereco() { }
+
         public Endereco(string rua, string bairro, string cidade, string UF, string pais, CEP cep)
         {
             this.rua = rua;

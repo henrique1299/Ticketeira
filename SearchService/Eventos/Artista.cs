@@ -6,6 +6,7 @@
         public string nome { get; set; }
         public string descricao { get; set; }
 
+        public Artista() { }
         public Artista(string nome, string descricao)
         {
             this.nome = nome;
