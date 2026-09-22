@@ -15,7 +15,7 @@ namespace SearchService.BancoDeDados
 {
     public class PostgreDB
     {
-        private static readonly string _connectionString = "Host=postgres_db;Port=5432;Database=ticketeira_db;Username=postgres;Password=sua_senha";
+        private static readonly string _connectionString = "Host=postgres;Port=5432;Database=ticketeira_db;Username=postgres;Password=pF*vitEA0z*xZ-ENF91a";
 
         private static ElasticsearchClientSettings settings = new ElasticsearchClientSettings(new Uri("http://elasticsearch:9200"))
             .Authentication(new BasicAuthentication("elastic", "pF*vitEA0z*xZ-ENF91a"))
@@ -62,7 +62,7 @@ namespace SearchService.BancoDeDados
                     local.id AS Id,
                     local.nome AS Nome, 
                     local.cidade AS Cidade
-                FROM shows eventos
+                FROM eventos eventos
                 INNER JOIN Artistas artista ON eventos.artista = artista.id
                 INNER JOIN Locais local ON eventos.local = local.id
                 WHERE eventos.id = @Id

@@ -11,7 +11,7 @@ namespace EventService.BancoDeDados
 {
     public class PostgreDB
     {
-        private static readonly string _connectionString = "Host=postgres_db;Port=5432;Database=EventService_db;Username=postgres;Password=sua_senha";
+        private static readonly string _connectionString = "Host=postgres;Port=5432;Database=EventService_db;Username=postgres;Password=pF*vitEA0z*xZ-ENF91a";
         private static NpgsqlConnection connect() => new NpgsqlConnection(_connectionString);
 
         public PostgreDB()
@@ -49,7 +49,7 @@ namespace EventService.BancoDeDados
                 string valor = db.StringGet("chaveTest");
             }
 
-            Console.ReadKey();
+            //Console.ReadKey();
 
             return "";
         }
