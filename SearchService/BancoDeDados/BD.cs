@@ -37,11 +37,11 @@ namespace SearchService.BancoDeDados
 
         }
 
-        public static string GetEventoById(int event_id)
+        public static async Task<string> GetEventoById(int event_id)
         {
             IDatabase dbRedis = RedisConnection.GetDatabase();
 
-            string valorChave = dbRedis.StringGet(event_id.ToString());
+            string valorChave = await dbRedis.StringGetAsync(event_id.ToString());
 
             if (!string.IsNullOrEmpty(valorChave))
             {
@@ -68,7 +68,7 @@ namespace SearchService.BancoDeDados
                 WHERE eventos.id = @Id
             ";
 
-            var resultado = connection.Query<EventoDto, ArtistaDto, LocalDto, Evento>(
+            var resultado = await connection.QueryAsync<EventoDto, ArtistaDto, LocalDto, Evento>(
                 sql,
                 (eventoDto, artistaDto, localDto) =>
                 {
@@ -150,7 +150,7 @@ namespace SearchService.BancoDeDados
 
         }
 
-        public static string GetEventos()
+        public static async Task<string> GetEventos()
         {
             using var connection = connect();
 
@@ -171,7 +171,7 @@ namespace SearchService.BancoDeDados
                 INNER JOIN Locais local ON eventos.local = local.id
             ";
 
-            var resultado = connection.Query<EventoDto, ArtistaDto, LocalDto, Evento>(
+            var resultado = await connection.QueryAsync<EventoDto, ArtistaDto, LocalDto, Evento>(
                 sql,
                 (eventoDto, artistaDto, localDto) =>
                 {

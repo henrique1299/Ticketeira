@@ -3,7 +3,7 @@
     public class Cliente
     {
 
-        private int id;
+        private string id;
         private Dados_Cliente dados;
 
         public Cliente()

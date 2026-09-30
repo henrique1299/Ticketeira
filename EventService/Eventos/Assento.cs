@@ -3,11 +3,11 @@
     public class Assento
     {
 
-        public int Id;
-        public int Codigo;
-        public int Setor;
+        public string Id;
+        public string Codigo;
+        public string Setor;
 
-        public Assento(int Id, int Codigo, int Setor)
+        public Assento(string Id, string Codigo, string Setor)
         {
             this.Id = Id;
             this.Codigo = Codigo;

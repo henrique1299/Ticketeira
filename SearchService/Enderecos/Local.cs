@@ -5,7 +5,7 @@ namespace SearchService.Enderecos
 
     public class Local
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string nome { get; set; }
         public int capacidade { get; set; }
         public Endereco endereco { get; set; }
@@ -13,7 +13,7 @@ namespace SearchService.Enderecos
 
         public Local() { }
 
-        public Local(int Id, string nome, Endereco endereco, int capacidade)
+        public Local(string Id, string nome, Endereco endereco, int capacidade)
         {
             this.Id = Id;
             this.nome = nome;
@@ -24,7 +24,7 @@ namespace SearchService.Enderecos
 
     public class LocalDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nome { get; set; } = string.Empty;
         public int Capacidade { get; set; }
         public string Logradouro { get; set; } = string.Empty;

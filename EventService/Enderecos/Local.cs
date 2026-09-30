@@ -5,13 +5,13 @@ namespace EventService.Enderecos
 
     public class Local
     {
-        private int Id;
+        private string Id;
         private string nome;
         private int capacidade;
         private Endereco endereco;
         private Assento assento;
 
-        public Local(int Id, string nome, Endereco endereco, int capacidade)
+        public Local(string Id, string nome, Endereco endereco, int capacidade)
         {
             this.Id = Id;
             this.nome = nome;
@@ -22,9 +22,9 @@ namespace EventService.Enderecos
 
     public class LocalDto
     {
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Nome { get; set; } = string.Empty;
-        public int Capacidade { get; set; }
+        public string Capacidade { get; set; }
         public string Logradouro { get; set; } = string.Empty;
         public string Numero { get; set; } = string.Empty;
         public string Cidade { get; set; } = string.Empty;

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using EventService.Eventos;
+using EventService.BancoDeDados;
 
 namespace EventService.Controllers
 {
@@ -9,9 +10,11 @@ namespace EventService.Controllers
     {
 
         [HttpPost]
-        public string GetEvent([FromBody] Ticket ticket)
+        public async Task<string> GerarIngresso([FromBody] Ticket ticket)
         {
-            return "EventService return Ticket";
+            await RedisDB.GerarIngresso(ticket);
+
+            return "Ticket Gerado.";
         }
     }
 }
